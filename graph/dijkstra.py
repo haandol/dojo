@@ -1,10 +1,8 @@
 def solution(graph, start):
   Q = [start]
-
   P = { k: None for k in graph }
   W = { k: float('inf') for k in graph }
   W[start] = 0
-
   visited = []
 
   while Q:
