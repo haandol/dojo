@@ -1,3 +1,5 @@
+# https://www.geeksforgeeks.org/trie-insert-and-search/
+
 class Node(object):
   def __init__(self):
     self.children = {}
