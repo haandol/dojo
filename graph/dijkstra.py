@@ -1,3 +1,6 @@
+# https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/
+# using dictionary makes O(V+E)
+
 def solution(graph, start):
   prev = { k: None for k in graph }
   dist = { k: float('inf') for k in graph }
