@@ -1,3 +1,5 @@
+# https://www.geeksforgeeks.org/avl-tree-set-1-insertion/
+
 class Node:
   def __init__(self, val):
     self.val = val
