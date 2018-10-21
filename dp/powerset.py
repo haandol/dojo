@@ -10,5 +10,5 @@ def powerset(arr, n):
     print()
 
 
-arr = ['a', 'b', 'c']; 
+arr = ['a', 'b', 'c']
 powerset(arr, 3); 
