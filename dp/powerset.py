@@ -1,14 +1,14 @@
 # https://www.geeksforgeeks.org/power-set/amp/
 
 def powerset(arr, n):
-  n = pow(2, n)
+  size = n ** 2
 
-  for i in range(n):
+  for i in range(size):
     for j in range(n):
-      if 0 < (i & (1 << j)):
+      if i & (1 << j) > 0:
         print(arr[j], end='')
     print()
 
 
-arr = ['a', 'b', 'c']
+arr = ['A', 'B', 'C']
 powerset(arr, 3); 
