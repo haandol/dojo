@@ -1,3 +1,6 @@
+# https://www.geeksforgeeks.org/insertion-sort/
+
+
 def sort(arr):
   n = len(arr)
   for i in range(1, n):
@@ -7,6 +10,7 @@ def sort(arr):
         arr[j+1] = arr[j]
         j -= 1
     arr[j+1] = val
+
 
 arr = [12, 11, 13, 5, 6]
 sort(arr)
