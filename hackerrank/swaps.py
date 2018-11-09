@@ -1,7 +1,7 @@
 # https://www.hackerrank.com/challenges/minimum-swaps-2/
 
 def minimumSwaps(arr):
-  table = [None] * (max(arr) + 1)
+  table = {}
   for i, el in enumerate(arr):
     table[el] = i
 
