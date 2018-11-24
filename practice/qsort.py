@@ -40,3 +40,7 @@ if __name__ == '__main__':
   arr = [1, 2, 3, 4, 5, 6, 7]
   sort(arr)
   assert [1, 2, 3, 4, 5, 6, 7] == arr
+
+  arr = [1, 1, 5, 4, 3, 2, 1]
+  sort(arr)
+  assert [1, 1, 1, 2, 3, 4, 5] == arr
