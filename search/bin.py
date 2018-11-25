@@ -13,3 +13,6 @@ def search(arr, l, h, val):
 
 arr = [ 2, 3, 4, 10, 40 ] 
 assert 3 == search(arr, 0, len(arr) - 1, 10)
+assert 0 == search(arr, 0, len(arr) - 1, 2)
+assert 4 == search(arr, 0, len(arr) - 1, 40)
+assert -1 == search(arr, 0, len(arr) - 1, 1)
