@@ -1,35 +1,40 @@
 def _merge(arr, l, m, r):
-  tmp = []
   i = l
   j = m + 1
+
+  res = []
   while i <= m and j <= r:
     if arr[i] <= arr[j]:
-      tmp.append(arr[i])
+      res.append(arr[i])
       i += 1
     else:
-      tmp.append(arr[j])
+      res.append(arr[j])
       j += 1
   
-  for k in range(i, m+1):
-    tmp.append(arr[k])
-  for k in range(j, r+1):
-    tmp.append(arr[k])
+  while i <= m:
+    res.append(arr[i])
+    i += 1
 
-  for i, el in enumerate(tmp):
+  while j <= r:
+    res.append(arr[j])
+    j += 1
+
+  for i, el in enumerate(res):
     arr[l+i] = el
 
 
 def _sort(arr, l, r):
-  if l < r:
-    m = int((l + r) / 2)
-    _sort(arr, l, m)
-    _sort(arr, m + 1, r)
-    _merge(arr, l, m, r)
+  if r <= l:
+    return
+
+  m = int(l+((r-l)/2))
+  _sort(arr, l, m)
+  _sort(arr, m+1, r)
+  _merge(arr, l, m, r)
 
 
 def sort(arr):
-  n = len(arr) - 1
-  _sort(arr, 0, n)
+  _sort(arr, 0, len(arr)-1)
 
 
 if __name__ == '__main__':
