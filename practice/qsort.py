@@ -1,31 +1,34 @@
 def partition(arr, l, r):
-  pi = r
-  pivot = arr[pi]
+  pivot = arr[r]
+  i = l
+  j = r - 1
 
-  r -= 1
-  while l <= r:
-    if pivot < arr[l] and arr[r] < pivot:
-      arr[l], arr[r] = arr[r], arr[l]
-      l += 1
-      r -= 1
-    elif arr[l] <= pivot:
-      l += 1
-    elif pivot <= arr[r]:
-      r -= 1
+  while i <= j:
+    if pivot < arr[i] and arr[j] < pivot:
+      arr[i], arr[j] = arr[j], arr[i]
+      i += 1
+      j -= 1
+    elif arr[i] <= pivot:
+      i += 1
+    elif pivot <= arr[j]:
+      j -= 1
+
+  arr[r], arr[i] = arr[i], arr[r]
+  return i
+
+
+def _sort(arr, l, r):
+  if r <= l:
+    return
+
+  pi = partition(arr, l, r)
+
+  _sort(arr, l, pi-1)
+  _sort(arr, pi+1, r)
   
-  arr[pi], arr[l] = arr[l], arr[pi]
-  return l
-
-
-def qsort(arr, l, r):
-  if l < r:
-    pi = partition(arr, l, r)
-    qsort(arr, l, pi - 1)
-    qsort(arr, pi + 1, r)
-
 
 def sort(arr):
-  qsort(arr, 0, len(arr) - 1)
+  _sort(arr, 0, len(arr) - 1)
 
 
 if __name__ == '__main__':
