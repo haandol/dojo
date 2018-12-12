@@ -1,9 +1,11 @@
 # https://www.geeksforgeeks.org/traveling-salesman-problem-tsp-implementation/amp/
-import math
 
+def _travel(graph, path, visited, length, start) -> int:
+  # return to start
+  if len(path) == len(graph): return length + graph[path[-1]][start]
 
-def _travel(graph, path, visited, length) -> int:
-  ret = math.inf
+  ret = 99999999999999
+
   for node in graph:
     if visited.get(node, False):
       continue
@@ -11,7 +13,7 @@ def _travel(graph, path, visited, length) -> int:
     current = path[-1]
     path.append(node)
     visited[node] = True
-    ret = _travel(graph, path, visited, min(ret, length + graph[current][node]))
+    ret = min(ret, _travel(graph, path, visited, length + graph[current].get(node, 0), start))
     visited[node] = False
     path.pop()
 
@@ -20,16 +22,18 @@ def _travel(graph, path, visited, length) -> int:
 
 
 def travel(graph) -> int:
-  path = [1]
-  visited = {1: True}
-  return _travel(graph, path, visited, 0)
+  start = 1
+  path = [start]
+  visited = {start: True}
+  return _travel(graph, path, visited, 0, start)
 
 
 if '__main__' == __name__:
   graph = {
     1: {
       2: 10,
-      3: 15
+      3: 15,
+      4: 20
     },
     2: {
       1: 10,
@@ -47,4 +51,5 @@ if '__main__' == __name__:
       3: 30
     }
   }
+  print(travel(graph))
   assert 80 == travel(graph)
