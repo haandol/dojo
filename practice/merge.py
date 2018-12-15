@@ -26,15 +26,24 @@ def _merge(arr, l, m, r):
 def _sort(arr, l, r):
   if r <= l:
     return
+<<<<<<< HEAD
   
   m = int((l + r) / 2)
+=======
+
+  m = int(l+((r-l)/2))
+>>>>>>> 13d031344372357aeb6bef1ea890a123b428a5b9
   _sort(arr, l, m)
   _sort(arr, m+1, r)
   _merge(arr, l, m, r)
 
 
 def sort(arr):
+<<<<<<< HEAD
   _sort(arr, 0, len(arr) - 1)
+=======
+  _sort(arr, 0, len(arr)-1)
+>>>>>>> 13d031344372357aeb6bef1ea890a123b428a5b9
 
 
 if __name__ == '__main__':

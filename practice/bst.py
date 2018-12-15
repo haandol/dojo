@@ -6,22 +6,24 @@ class Node:
 
 
 def insert(node, val):
-  if node is None:
-    return
-
   if val <= node.val:
     if node.left:
-      insert(node.left, val)
+      node.left = insert(node.left, val)
     else:
       node.left = Node(val)
-  else:
+  elif node.val < val:
     if node.right:
-      insert(node.right, val)
+      node.right = insert(node.right, val)
     else:
       node.right = Node(val)
 
+  return node
+
 
 def inorder(node):
+  if not node:
+    return
+
   if node.left:
     inorder(node.left)
   print(node.val)
@@ -30,9 +32,9 @@ def inorder(node):
 
 
 def search(node, val):
-  if node is None:
+  if not node:
     return False
-  
+
   if val < node.val:
     return search(node.left, val)
   elif node.val < val:
@@ -42,22 +44,22 @@ def search(node, val):
 
 
 def delete(node, val):
-  if node is None:
-    return
+  if not node:
+    return None
 
   if val < node.val:
     node.left = delete(node.left, val)
   elif node.val < val:
     node.right = delete(node.right, val)
   else:
-    if node.left is None:
+    if not node.left:
       return node.right
-    elif node.right is None:
+    elif not node.right:
       return node.left
-    else:
-      successor = get_successor(node.right)
-      node.val = successor.val
-      node.right = delete(node.right, successor.val)
+    
+    successor = get_successor(node.right)
+    node.val = successor.val
+    node.right = delete(node.right, successor.val)
 
   return node
 
@@ -65,7 +67,9 @@ def delete(node, val):
 def get_successor(node):
   while node.left:
     node = node.left
+
   return node
+
 
 if __name__ == '__main__':
   root = Node(50)
