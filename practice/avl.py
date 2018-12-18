@@ -1,5 +1,3 @@
-# https://www.geeksforgeeks.org/avl-tree-set-1-insertion/
-
 class Node:
   def __init__(self, val):
     self.val = val
@@ -8,73 +6,76 @@ class Node:
     self.height = 1
 
 
-def insert(node, val):
-  if not node:
-    return Node(val)
-
-  if val <= node.val:
-    node.left = insert(node.left, val)
-  elif node.val < val:
-    node.right = insert(node.right, val)
-
-  node.height = 1 + max(get_height(node.left), get_height(node.right))
-
-  balance = get_balance(node)
-
-  # LL
-  if balance > 1 and val < node.left.val:
-    return rotate_right(node)
-  # LR
-  if balance > 1 and node.left.val < val:
-    node.left = rotate_left(node.left)
-    return rotate_right(node)
-  # RR
-  if balance < -1 and node.right.val < val:
-    return rotate_left(node)
-  # RL
-  if balance < -1 and val < node.right.val:
-    node.right = rotate_right(node.right)
-    return rotate_left(node)
-
-  return node
-
-
-def get_balance(node):
-  if not node:
-    return 0
-  return get_height(node.left) - get_height(node.right)
-
-
 def get_height(node):
   if not node:
     return 0
   return node.height
 
 
-def rotate_left(x):
-  y = x.right
-  c = y.left
+def get_balance(node):
+  return get_height(node.left) - get_height(node.right)
 
-  y.left = x
-  x.right = c
+
+def insert(node, val):
+  if val <= node.val:
+    if node.left:
+      node.left = insert(node.left, val)
+    else:
+      node.left = Node(val)
+  elif node.val < val:
+    if node.right:
+      node.right = insert(node.right, val)
+    else:
+      node.right = Node(val)
+
+  node.height = 1 + max(get_height(node.left), get_height(node.right))
+  balance = get_balance(node)
+  # unbalance
+  if 1 < balance:
+  # LL
+    if val < node.left.val:
+      return rotate_right(node)
+  # LR
+    elif node.left.val < val:
+      node.left = rotate_left(node.left)
+      return rotate_right(node)
+  elif balance < -1:
+  # RR
+    if node.right.val < val:
+      return rotate_left(node)
+  # RL
+    elif val < node.right.val:
+      node.right = rotate_right(node.right)
+      return rotate_left(node)
+
+  return node
+
+
+def rotate_left(x):
+  z = x.right
+  a = z.left
+
+  z.left = x
+  x.right = a
 
   x.height = 1 + max(get_height(x.left), get_height(x.right))
-  y.height = 1 + max(get_height(y.left), get_height(y.right))
+  z.height = 1 + max(get_height(z.left), get_height(z.right))
 
-  return y
+  return z
 
 
 def rotate_right(x):
   y = x.left
-  c = y.right
+  b = y.right
 
   y.right = x
-  x.left = c
+  x.left = b
 
   x.height = 1 + max(get_height(x.left), get_height(x.right))
   y.height = 1 + max(get_height(y.left), get_height(y.right))
 
   return y
+
 
 
 def delete(node, val):
@@ -85,35 +86,36 @@ def delete(node, val):
     node.left = delete(node.left, val)
   elif node.val < val:
     node.right = delete(node.right, val)
-  else: 
+  else:
     if not node.left:
-      return node.right 
+      return node.right
     elif not node.right:
       return node.left
-    
+
     successor = get_successor(node.right)
     node.val = successor.val
     node.right = delete(node.right, successor.val)
 
   node.height = 1 + max(get_height(node.left), get_height(node.right))
-
   balance = get_balance(node)
-
+  # unbalance
+  if 1 < balance:
   # LL
-  if balance > 1 and 0 <= get_balance(node.left):
-    return rotate_right(node)
+    if val < node.left.val:
+      return rotate_right(node)
   # LR
-  if balance > 1 and get_balance(node.left) < 0:
-    node.left = rotate_left(node.left)
-    return rotate_right(node)
+    elif node.left.val < val:
+      node.left = rotate_left(node.left)
+      return rotate_right(node)
+  elif balance < -1:
   # RR
-  if balance < -1 and get_balance(node.right) <= 0:
-    return rotate_left(node)
+    if node.right.val < val:
+      return rotate_left(node)
   # RL
-  if balance < -1 and 0 < get_balance(node.right):
-    node.right = rotate_right(node.right)
-    return rotate_left(node)
-
+    elif val < node.right.val:
+      node.right = rotate_right(node.right)
+      return rotate_left(node)
+ 
   return node
 
 
@@ -127,7 +129,7 @@ def preorder(node):
   if not node:
     return
 
-  print(node.val, node.height)
+  print(node.val)
   preorder(node.left)
   preorder(node.right)
 
@@ -142,6 +144,6 @@ if __name__ == '__main__':
   preorder(root)
   print()
 
-  root = delete(root, 40)
+  root = delete(root, 30)
   preorder(root)
   print()
