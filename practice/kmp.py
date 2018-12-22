@@ -1,48 +1,44 @@
 # https://www.geeksforgeeks.org/kmp-algorithm-for-pattern-searching/
 
 def get_lps(pat):
-  m = len(pat)
-  lps = [0] * m
-
-  length = 0
+  n = len(pat)
+  lps = [0] * n    # longest proper prefix which is also suffix
   i = 1
-
-  while i < m:
-    if pat[i] == pat[length]:
-      length += 1
-      lps[i] = length
+  l = 0
+  while i < n:
+    if pat[i] == pat[l]:
+      l += 1
+      lps[i] = l
       i += 1
     else:
-      if length != 0:
-        length = lps[length - 1]
+      if 0 < l:
+        l = lps[l-1]
       else:
-        lps[i] = 0
         i += 1
 
   return lps
 
-
 def find(text, pat):
   res = []
-  lps = get_lps(pat)
-
-  i = 0
-  j = 0
   n = len(text)
   m = len(pat)
 
+  i = 0
+  l = 0
+  lps = get_lps(pat)
   while i < n:
-    if text[i] == pat[j]:
+    if text[i] == pat[l]:
       i += 1
-      j += 1
-      if j == m:
-        res.append(i)
-        j = lps[j - 1] 
+      l += 1
     else:
-      if j != 0:
-        j = lps[j-1]
+      if 0 < l:
+        l = lps[l-1]
       else:
         i += 1
+
+    if l == m:
+      res.append(i-m)
+      l = lps[l-1]
 
   return res
 
@@ -55,3 +51,9 @@ if __name__ == '__main__':
   text = 'AABAACAADAABAABA'
   pat = 'AABA'
   [0, 9, 12] == find(text, pat)
+
+  assert [0, 1, 2, 3]== get_lps('AAAA')
+  assert [0, 1, 2, 0]== get_lps('AAAB')
+  assert [0, 1, 0, 1]== get_lps('AABA')
+  assert [0, 0, 1, 2]== get_lps('ABAB')
+  assert [0, 1, 0, 1, 2] == get_lps('AACAA')
