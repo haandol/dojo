@@ -13,28 +13,30 @@ class PriorityQueue:
     p = int((c - 1) / 2)
     if self.heap[p][0] < self.heap[c][0]:
       self.heap[c], self.heap[p] = self.heap[p], self.heap[c]
-
-    self.siftup(p)
+      self.siftup(p)
 
   def pop(self):
-    val = self.heap[0]
-    last = self.heap.pop()
-    if self.heap:
-      self.heap[0] = last
-      self.siftdown(0)
+    if not self.heap:
+      return (-1, None)
 
+    last = self.heap.pop()
+    if not self.heap:
+      return last
+
+    val = self.heap[0]
+    self.heap[0] = last
+    self.siftdown(0)
     return val
 
   def siftdown(self, p):
-    n = len(self.heap) - 1
     c = p * 2 + 1
-    if c <= n:
+    if c < len(self.heap):
       if self.heap[p][0] < self.heap[c][0]:
         self.heap[c], self.heap[p] = self.heap[p], self.heap[c]
         self.siftdown(c)
 
     c = p * 2 + 2
-    if c <= n:
+    if c < len(self.heap):
       if self.heap[p][0] < self.heap[c][0]:
         self.heap[c], self.heap[p] = self.heap[p], self.heap[c]
         self.siftdown(c)
@@ -55,3 +57,4 @@ if __name__ == '__main__':
   assert (2, 'd') == queue.pop()
   assert (1, 'c') == queue.pop()
   assert (0, 'a') == queue.pop()
+  assert (-1, None) == queue.pop()
