@@ -1,18 +1,23 @@
-def _solve(arr, start):
+def _solve(arr, start, cache):
+  if cache[start]:
+    return cache[start]
+
   n = len(arr)
 
   ret = 1
   for i in range(start, n):
     if arr[start] < arr[i]:
-      ret = max(ret, 1 + _solve(arr, i))
+      ret = max(ret, 1 + _solve(arr, i, cache))
+  cache[start] = ret
   return ret
 
 
 def solve(arr):
   n = len(arr)
   ret = 1
+  cache = [None] * n
   for i in range(n):
-    ret = max(ret, _solve(arr, i))
+    ret = max(ret, _solve(arr, i, cache))
   return ret
 
 
