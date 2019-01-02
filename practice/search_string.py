@@ -14,7 +14,6 @@ def search(s, t):
 
     if j == m:
       res.append(i-m)
-      i -= (j - 1)
       j = 0
 
   return res
@@ -27,4 +26,4 @@ if __name__ == '__main__':
 
   string = 'AAAAAA'
   target = 'AAA'
-  assert [0, 1, 2, 3] == search(string, target)
+  assert [0, 3] == search(string, target)
