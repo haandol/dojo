@@ -1,7 +1,7 @@
 # https://www.geeksforgeeks.org/power-set/amp/
 
 def powerset(arr, n):
-  size = n ** 2
+  size = 2 ** n
 
   for i in range(size):
     for j in range(n):
