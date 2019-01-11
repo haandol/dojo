@@ -5,7 +5,7 @@ def solve(members, fans, m, n):
     i = 0
     j = k
     matched = True
-    while i < m and j < n:
+    while i < m:
       if members[i] == 'M' and fans[j] == 'M':
         matched = False
         break
