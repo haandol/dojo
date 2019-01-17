@@ -1,35 +1,19 @@
-def _solve(arr, start, cache):
-  if cache[start]:
-    return cache[start]
-
-  n = len(arr)
-
-  ret = 1
-  for i in range(start, n):
-    if arr[start] < arr[i]:
-      ret = max(ret, 1 + _solve(arr, i, cache))
-  cache[start] = ret
-  return ret
-
-
 def solve(arr):
   n = len(arr)
-  ret = 1
-  cache = [None] * n
-  for i in range(n):
-    ret = max(ret, _solve(arr, i, cache))
-  return ret
+  lis = [1 for _ in range(n)]
+  for i in range(1, n):
+    for j in range(0, i):
+      if arr[j] < arr[i] and lis[i] < 1 + lis[j]:
+        lis[i] = 1 + lis[j]
+
+  return max(lis)
 
 
-if __name__ == '__main__':
-  L = [3, 10, 2, 1, 20]
-  assert 3 == solve(L)
+arr = [3, 10, 2, 1, 20]
+assert 3 == solve(arr)
 
-  L = [3, 1]
-  assert 1 == solve(L)
+arr = [3, 2]
+assert 1 == solve(arr)
 
-  L = [50, 3, 10, 7, 40, 80]
-  assert 4 == solve(L)
-
-  L = [10, 22, 9, 33, 21, 50, 41, 60, 80]
-  assert 6 == solve(L)
+arr = [50, 3, 10, 7, 40, 80]
+assert 4 == solve(arr)
