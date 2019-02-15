@@ -4,6 +4,6 @@
   "python.linting.pep8Enabled": false,
   "python.linting.enabled": true,
   "python.linting.flake8Enabled": true,
-  "editor.fontSize": 20,
+  "editor.fontSize": 18,
   "editor.fontFamily": "Bitstream Vera Mono,Menlo, Monaco, 'Courier New', monospace"
 }
