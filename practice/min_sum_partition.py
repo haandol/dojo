@@ -1,3 +1,5 @@
+# https://www.geeksforgeeks.org/partition-a-set-into-two-subsets-such-that-the-difference-of-subset-sums-is-minimum/
+
 def helper(arr, path, res, s):
     if s - sum(path) < 0:
         res.append(abs(s - sum(path)))
