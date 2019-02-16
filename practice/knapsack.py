@@ -1,24 +1,22 @@
-# https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
+def helper(W, V, cap, i, v):
+    if cap == 0:
+        return v
+    if i < 0:
+        return 0
 
-def knapsack(W, V, cap, i, cache):
-  if i == len(V):
-    return 0
+    if cap < W[i]:
+        return helper(W, V, cap, i-1, v)
 
-  ret = cache[cap][i]
-  if not ret:
-    ret = knapsack(W, V, cap, i+1, cache)
-  
-  if W[i] <= cap:
-    ret = max(ret, V[i] + knapsack(W, V, cap-W[i], i+1, cache))
-
-  cache[cap][i] = ret
-  return ret
+    return max(
+        helper(W, V, cap - W[i], i-1, v + V[i]),
+        helper(W, V, cap, i-1, v)
+    )
 
 
-if __name__ == '__main__':
-  V = [60, 100, 120]
-  W = [10, 20, 30]
-  cap = 50
-  n = len(V)
-  cache = [[0] * (n+1) for _ in range(cap+1)]
-  assert 220 == knapsack(W, V, cap, 0, cache)
+def solve(W, V, cap):
+    n = len(W)
+    return helper(W, V, cap, n-1, 0)
+
+
+assert 220 == solve([10, 20, 30], [60, 100, 120], 50)
+assert 11 == solve([1, 3, 4, 5], [1, 4, 5, 7], 8)
