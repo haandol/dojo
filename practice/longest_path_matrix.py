@@ -1,13 +1,15 @@
 # https://www.geeksforgeeks.org/find-the-longest-path-in-a-matrix-with-given-constraints/
 
 
+directions = [
+    [-1, 0],
+    [0, 1],
+    [1, 0],
+    [0, -1]
+]
+
+
 def helper(matrix, row, col):
-    directions = [
-        [-1, 0],
-        [0, 1],
-        [1, 0],
-        [0, -1]
-    ]
     n = len(matrix)
     res = 1
     for y, x in directions:
@@ -20,12 +22,34 @@ def helper(matrix, row, col):
     return res
 
 
+def helper_dp(matrix, i, j, dp):
+    n = len(matrix)
+    if -1 < dp[i][j]:
+        return dp[i][j]
+
+    for y, x in directions:
+        dy = i + y
+        dx = j + x
+        if dy < 0 or dx < 0 or n <= dy or n <= dx:
+            continue
+        if matrix[dy][dx] == matrix[i][j] + 1:
+            dp[i][j] = 1 + helper_dp(matrix, dy, dx, dp)
+            return dp[i][j]
+    dp[i][j] = 1
+    return dp[i][j]
+
+
 def solve(matrix):
     n = len(matrix)
-    res = 0
-    for row in range(n):
-        for col in range(n):
-            res = max(res, helper(matrix, row, col))
+    dp = [
+        [-1] * n
+        for _ in range(n)
+    ]
+    res = 1
+    for i in range(n):
+        for j in range(n):
+            helper_dp(matrix, i, j, dp)
+            res = max(res, dp[i][j])
     return res
 
 
