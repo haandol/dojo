@@ -15,7 +15,19 @@ def helper(W, V, cap, i, v):
 
 def solve(W, V, cap):
     n = len(W)
-    return helper(W, V, cap, n-1, 0)
+    dp = [
+        [0] * (cap+1)
+        for _ in range(n+1)
+    ]
+
+    for i in range(1, n+1):
+        for j in range(1, cap+1):
+            if j < W[i-1]:
+                dp[i][j] = dp[i-1][j]
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i-1][j-W[i-1]] + V[i-1])
+    
+    return dp[n][cap]
 
 
 assert 220 == solve([10, 20, 30], [60, 100, 120], 50)
