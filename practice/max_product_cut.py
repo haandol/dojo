@@ -9,10 +9,19 @@ def helper(n):
 
 
 def solve(n):
-    return helper(n)
+    dp = [0] * (n+1)
+    dp[0] = 1
+    dp[1] = 1
+
+    for i in range(1, n+1):
+        max_so_far = dp[i]
+        for j in range(1, i):
+            max_so_far = max([max_so_far, j * dp[i-j], j * (i-j)])
+        dp[i] = max_so_far
+
+    return dp[n]
 
 
-assert 1 == solve(0)
 assert 1 == solve(1)
 assert 1 == solve(2)
 assert 2 == solve(3)
