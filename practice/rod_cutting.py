@@ -12,7 +12,14 @@ def helper(P, n):
 
 def solve(P):
     n = len(P)
-    return helper(P, n)
+    dp = [0] * (n+1)
+    for i in range(1, n+1):
+        max_so_far = 0
+        for j in range(i):
+            max_so_far = max(max_so_far, P[j] + dp[i-j-1])
+        dp[i] = max_so_far
+
+    return dp[n]
 
 
 print(solve([1, 5, 8, 9, 10, 17, 17, 20]))
