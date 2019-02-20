@@ -23,9 +23,9 @@ def reverse(s):
 
 
 def fix_tag(s):
-    pat = r'(<b>)(\w+)(</b>)'
+    pat = r'(<\w+>)(\w+)(</\w+>)'
     return re.sub(pat, r'\g<3>\g<2>\g<1>', s)
 
 
-s = 'Amazon TV <b>Alexa</b>'
+s = 'Amazon TV <em>Alexa</em> And <b>Echo</b>'
 print(reverse(fix_tag(s)))
