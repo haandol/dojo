@@ -123,13 +123,13 @@ def get_successor(node):
   return node
 
 
-def preorder(node):
+def inorder(node):
   if not node:
     return
 
+  inorder(node.left)
   print(node.val, node.height)
-  preorder(node.left)
-  preorder(node.right)
+  inorder(node.right)
 
 
 if __name__ == '__main__':
@@ -139,9 +139,9 @@ if __name__ == '__main__':
   root = insert(root, 40) 
   root = insert(root, 50) 
   root = insert(root, 25) 
-  preorder(root)
+  inorder(root)
   print()
 
   root = delete(root, 40)
-  preorder(root)
+  inorder(root)
   print()
