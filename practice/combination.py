@@ -4,12 +4,12 @@ def helper(arr, k, path):
         return
 
     for i in range(len(arr)):
-        helper(arr[:i]+arr[i+1:], k, path+[arr[i]])
+        helper(arr[i+1:], k, path+[arr[i]])
 
 
 def solve(arr, k):
     helper(arr, k, [])
 
 
-L = [1, 2, 3]
+L = [1, 2, 3, 4]
 solve(L, 2)
