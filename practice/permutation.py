@@ -1,5 +1,5 @@
 def helper(arr, k, path):
-    if len(path) == k:
+    if k == len(path):
         print(path)
         return
 
