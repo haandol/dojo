@@ -1,9 +1,9 @@
 {
-  "python.pythonPath": "/usr/local/bin/python3",
+  "python.pythonPath": "C:\\Users\\dongklee\\AppData\\Local\\Programs\\Python\\Python35\\python.exe",
   "python.linting.pylintEnabled": false,
   "python.linting.pep8Enabled": false,
-  "python.linting.enabled": true,
+  "python.linting.enabled": false,
   "python.linting.flake8Enabled": true,
   "editor.fontSize": 18,
-  "editor.fontFamily": "Bitstream Vera Mono,Menlo, Monaco, 'Courier New', monospace"
+  "editor.fontFamily": "Bitstream Vera Mono, Consolas, 'Courier New', monospace"
 }
