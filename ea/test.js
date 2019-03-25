@@ -42,7 +42,7 @@ function generatePotisions(playerPositions) {
 }
 
 function helper(arr, r, path) {
-    if (r == path.length) {
+  if (r == path.length) {
       console.log(path);
       return;
     }
