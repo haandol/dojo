@@ -66,12 +66,16 @@ def findCombination(w, n, combinations):
   return ''
 
 
-waiting = 'F'
-queue = ['FF', 'DF', 'D', 'DM', 'M', 'FFM']
-nodes = []
-for node in queue:
-  nodes.append(node)
-  combination = findCombination(waiting, nodes, P[waiting])
-  if combination:
-    print(combination)
-    break
+if __name__ == '__main__':
+  print(generate('D'))
+  '''
+  waiting = 'F'
+  queue = ['FF', 'DF', 'D', 'DM', 'M', 'FFM']
+  nodes = []
+  for node in queue:
+    nodes.append(node)
+    combination = findCombination(waiting, nodes, P[waiting])
+    if combination:
+      print(combination)
+      break
+  '''
