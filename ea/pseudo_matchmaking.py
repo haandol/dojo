@@ -1,4 +1,4 @@
-playerPositions = 'F'
+playerPositions = F
 getPossiblePositions = [DMM, DFM, DDM]
 generateCombination(DMM) = [[DMM], [DM, M], [D, MM], [D, M, M]]
 
