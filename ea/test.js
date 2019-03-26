@@ -41,25 +41,24 @@ function generatePotisions(playerPositions) {
    return _.filter(result, (formation) => { return formation; });
 }
 
-function helper(arr, r, path) {
-  if (r == path.length) {
-      console.log(path);
+
+function combination(s) {
+  helper = (substring, path) => {
+    if (0 === substring.length) {
+      res.push(_.clone(path));
       return;
     }
 
-  for (const i in _.range(0, arr.length)) {
-    helper(_.slice(arr, i+1), r, _.concat(path, arr[i]));
-  }
-};
+    for (const length of _.range(1, substring.length+1)) {
+      helper(substring.slice(length), _.concat(path, [substring.slice(0, length)]));
+    }
+  };
 
-function combination(data, r) {
-  for (const item of data) {
-    helper(item.split(''), r, []);
-  }
+  const res = [];
+  helper(s, []);
+  return res;
 }
 
 
 console.log(generatePotisions('D'));
-console.log(combination(generatePotisions('D'), 3));
-console.log(combination(generatePotisions('D'), 2));
-console.log(combination(generatePotisions('D'), 1));
+console.log(combination(generatePotisions('D')[0]));
