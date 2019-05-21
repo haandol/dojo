@@ -1,26 +1,20 @@
 from pprint import pprint
 
 
-def helper(s, path, k, res):
-  if not s:
-    for item in path:
-      if k == len(item):
-        res.insert(0, path[:])
-        return
-
-    res.append(path[:])
+def helper(s, i, path, res):
+  if i == len(s):
+    res.append(sorted(path))
     return
 
-  n = len(s)
-
-  for length in range(1, n+1):
-    helper(s[length:], path+[s[:length]], k, res)
-
-
-def solve(s, k):
-  res = []
-  helper(s, [], k, res)
-  return res
+  helper(s, i+1, path+[s[i]], res)
+  for j in range(len(path)):
+    helper(s, i+1, path[:j]+[path[j]+s[i]]+path[j+1:], res)
 
 
-pprint(solve('TJMAS', 2))
+def solve(s):
+  res = list()
+  helper(s, 1, [s[0]], res)
+  return sorted(res)
+
+
+pprint(solve('DDFM'))
