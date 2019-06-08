@@ -4,13 +4,17 @@ class Solution:
             return []
         
         res = []
+        intervals.sort(key=lambda x: x[0])
         for item in intervals:
             if not res:
                 res.append(item)
             elif res[-1][1] < item[0]:
                 res.append(item)
-            elif item[0] <= res[-1][1] and res[-1][1] < item[1]:
-                res[-1][1] = item[1]
+            else:
+                if item[0] <= res[-1][0]:
+                    res[-1][0] = item[0]
+                if res[-1][1] < item[1]:
+                    res[-1][1] = item[1]
         return res
 
 
@@ -21,3 +25,6 @@ if __name__ == '__main__':
 
     arr = [[1, 4], [4, 5]]
     assert [[1, 5]] == s.merge(arr)
+
+    arr = [[1, 4], [0, 4]]
+    assert [[0, 4]] == s.merge(arr)
